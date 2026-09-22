@@ -6,7 +6,7 @@
       "config": { "distDir": "staticfiles" }
     },
     {
-      "src": "tu_proyecto/wsgi.py",
+      "src": "veterinario_core/wsgi.py",
       "use": "@vercel/python"
     }
   ],
@@ -17,7 +17,7 @@
     },
     {
       "src": "/(.*)",
-      "dest": "tu_proyecto/wsgi.py"
+      "dest": "veterinario_core/wsgi.py"
     }
   ]
 }

@@ -25,7 +25,10 @@ SECRET_KEY = 'django-insecure-b1$(j91^k(n^0uk0o(1mqqauf0%b0ri!x!(mvx)7nn&^rzc)&j
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [".veterinario-wheat.vercel.app", "127.0.0.1"]
+ALLOWED_HOSTS = ["  .veterinario-wheat.vercel.app", 
+                    "veterinario-5n7phyhdg-veterinario1.vercel.app",
+                    "127.0.0.1"
+                    ]
 #ALLOWED_HOSTS = [".vercel.app", "127.0.0.1"]
 
 
@@ -40,7 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # ----- Mío -----
-    'web'
+    'web',
 ]
 
 MIDDLEWARE = [

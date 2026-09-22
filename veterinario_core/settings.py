@@ -27,9 +27,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["  .veterinario-wheat.vercel.app", 
                     "veterinario-5n7phyhdg-veterinario1.vercel.app",
+                    ".veterinario-5n7phyhdg-veterinario1.vercel.app",
                     "127.0.0.1"
                     ]
-#ALLOWED_HOSTS = [".vercel.app", "127.0.0.1"]
+
 
 
 # Application definition

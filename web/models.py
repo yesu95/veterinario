@@ -1,4 +1,5 @@
 from django.db import models
+<<<<<<< HEAD
 from django.conf import settings
 import datetime
 
@@ -8,6 +9,26 @@ import datetime
 # Modelo de datos para la tabla de MASCOTAS 
 class Pet(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)    
+=======
+import datetime
+
+"""
+Fechas: Auto add now crea con la fecha de ahora. Vacío preguntará la fecha obligatoriamente
+"""
+
+# Modelo de datos para la tabla de USUARIOS 
+class User(models.Model):
+    name = models.CharField(max_length=100)
+    email = models.EmailField(unique=True)
+    password = models.CharField(max_length=100)
+
+    def __str__(self):
+        return f"Usario: {self.name} - Email: {self.email}"
+
+# Modelo de datos para la tabla de MASCOTAS 
+class Pet(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE) # FK del usuario | Delete cascade: Si se borra Usuarios, se elimina este campo
+>>>>>>> 74fefa0d642021ef4b71b0e4a8b9769ae7771d58
     name = models.CharField(max_length=100)
     species = models.CharField(max_length=80)
     breed = models.CharField(max_length=80)
@@ -29,7 +50,10 @@ class Pet(models.Model):
     def __str__(self):
         return f"Mascota: {self.name} - {self.species}, {self.breed} - Edad: {self.age}"
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 74fefa0d642021ef4b71b0e4a8b9769ae7771d58
 # Modelo de datos para la tabla de VACUNAS
 class Vaccines(models.Model):
     pet = models.ForeignKey(Pet, on_delete=models.CASCADE) # FK de la mascota
@@ -37,11 +61,18 @@ class Vaccines(models.Model):
     date_vaccine = models.DateField() 
     def __str__(self):
          return f"Vacuna: {self.name_vaccine} puesta el día {self.date_vaccine}"
+<<<<<<< HEAD
 
     
 # Modelo de datos para la tabla de CITAS MÉDICAS
 class Appointment(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+=======
+    
+# Modelo de datos para la tabla de CITAS MÉDICAS
+class Appointment(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)  # FK del usuario
+>>>>>>> 74fefa0d642021ef4b71b0e4a8b9769ae7771d58
     date_appointment = models.DateField() 
     reason = models.CharField(max_length=255)
     veterinarian = models.CharField(max_length=100)

@@ -1,0 +1,12 @@
+{% extends 'index.html' %}
+{% block contenido_dinamico %}
+<h2>Macotas</h2>
+<ul>
+    {% for elemento in pets %}
+    <li>
+        {{ elemento.titulo }}
+        <a href="/pet/{{ elemento.id }}/"></a>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}

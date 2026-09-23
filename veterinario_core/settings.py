@@ -107,9 +107,20 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/6.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+# settings.py
 
-TIME_ZONE = 'UTC'
+# Fechas ajustadas a DD/MM/AAAA ESPAÑOL DE ESPAÑA, NO GRINGO
+LANGUAGE_CODE = "es-es" 
+TIME_ZONE = "Europe/Madrid"
+
+USE_I18N = True
+USE_TZ = True
+
+DATE_INPUT_FORMATS = [
+    "%d/%m/%Y",
+    "%d/%m/%y", 
+    "%Y-%m-%d", 
+]
 
 USE_I18N = True
 

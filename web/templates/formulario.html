@@ -1,0 +1,8 @@
+{% extends 'index.html' %}
+{% block contenido_dinamico %}
+<form method="POST">
+    {% csrf_token %} <!-- ESCUDO ANTI-HACKERS OBLIGATORIO -->
+    {{ form.as_p }} <!-- Imprimir todos los inputs en forma de Párrafos -->
+    <button type="submit">Guardar</button>
+</form>
+{% endblock %}

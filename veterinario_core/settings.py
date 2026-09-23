@@ -148,3 +148,7 @@ MAILERS = {
         'BACKEND': 'django.core.mail.backends.console.EmailBackend',
     },
 }
+
+
+# Direct URL
+LOGIN_REDIRECT_URL = "mascotas"

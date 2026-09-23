@@ -1,0 +1,12 @@
+{% extends 'index.html' %}
+{% block content %}
+<h2>Macotas</h2>
+<ul>
+    {% for elemento in mascotas %}
+    <li>
+        {{ elemento.name }}
+    </li>
+    {% endfor %}
+</ul>
+<a href="/mascotas/añadir/">Añadir mascotas</a>
+{% endblock %}

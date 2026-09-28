@@ -8,5 +8,7 @@
     </li>
     {% endfor %}
 </ul>
-<a href="/mascotas/añadir/">Añadir mascotas</a>
+{% if user.is_authenticated and user.is_staff %}
+<a href="{% url 'crear mascota' %}">Crear Mascota</a>
+{% endif %}
 {% endblock %}

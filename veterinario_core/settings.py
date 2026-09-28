@@ -152,3 +152,5 @@ MAILERS = {
 
 # Direct URL
 LOGIN_REDIRECT_URL = "mascotas"
+
+LOGIN_URL = "login"

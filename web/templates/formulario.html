@@ -1,6 +1,10 @@
 {% extends 'index.html' %}
 {% block content %}
-<form method="POST">
+<section class="section-login">
+    <h1 class="title-xl">Animalia</h1>
+    <p class="text-m">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sagittis non tortor in cursus. Sed auctor nibh est, venenatis pulvinar nisi volutpat sit amet. Proin quis suscipit purus.</p>
+</section>
+<form class="form" method="POST">
     {% csrf_token %} <!-- ESCUDO ANTI-HACKERS OBLIGATORIO -->
     {{ form.as_p }} <!-- Imprimir todos los inputs en forma de Párrafos -->
     <button type="submit">Enviar</button>

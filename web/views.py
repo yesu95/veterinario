@@ -106,4 +106,4 @@ def view_vaccines(request):
 
 # ERROR 404
 def view_404(request, exception=None):
-    return redirect('/') 
+    return render(request, '404.html', status=404)

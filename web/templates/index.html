@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
-
+<!-- /static/veterinario/css/style.css -->
 <head>
-    <link rel="stylesheet" href="/static/veterinario/css/style.css">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 
 <body>
     {% include "header.html" %}
-    <h1>Animalia</h1>
     {% block content %}{% endblock %}
 </body>
 

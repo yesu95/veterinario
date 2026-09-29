@@ -12,7 +12,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("mascotas/", views.view_pets, name="mascotas"),
     path("mascotas/<int:id_pet>/", views.view_detail, name="detalle"),
-    path("mascotas/añadir/", views.view_create_pet, name="crear_mascota"),
+    path("mascotas/añadir/", views.view_create_pet, name="añadir mascota"),
     # path("mascotas/<int:id_pet>/editar/", views.view_edit_pet, name="editar"),
     # path("mascotas/<int:id_pet>/borrar/", views.view_del_pet, name="borrar"),
 ]

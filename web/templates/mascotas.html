@@ -1,6 +1,6 @@
 {% extends 'index.html' %}
 {% block content %}
-<h2>Macotas</h2>
+<h2>Macotas de {{ user.username }}</h2>
 <ul>
     {% for elemento in mascotas %}
     <li>
@@ -9,6 +9,5 @@
     {% endfor %}
 </ul>
 {% if user.is_authenticated and user.is_staff %}
-<a href="{% url 'crear mascota' %}">Crear Mascota</a>
-{% endif %}
-{% endblock %}
+<a href="{% url 'añadir mascota' %}">Añadir Mascota</a>
+{% endif %}{% endblock %}

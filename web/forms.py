@@ -9,7 +9,7 @@ class Petform(forms.ModelForm):
 
         # Para que en los formularios HTML se vean en español
         labels = {
-            "name": "Nombre de la mascota",
+            "name": "Nombre",
             "species": "Especie",
             "breed": "Raza",
             "birth_date": "Fecha de nacimiento",

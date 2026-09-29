@@ -7,7 +7,7 @@ from .forms import Petform
 
 """ Vistas de MASCOTAS (PETS)"""
 
-# READ MÚLTIPLE
+# READ MÚLTIPLE PETS
 @login_required
 def view_pets(request):
     if request.user.is_staff:
@@ -16,17 +16,21 @@ def view_pets(request):
         all_pets = Pet.objects.filter(user=request.user)
     return render(request, 'mascotas.html', {'mascotas': all_pets})
 
-# READ INDIVIDUAL
+# READ INDIVIDUAL PET
 @login_required
 def view_detail(request, id_pet):
     pet_select = get_object_or_404(Pet, id=id_pet)
     return render(request, "detalle_mascota.html", {"mascota": pet_select})
 
 
-# CREATE
+# CREATE PET
+""" Si NO es staff, me devuelve a mascotas, SI ES me pinta /añadir """
 @login_required
 def view_create_pet(request):
-    if request.user.is_staff and request.method == "POST":
+    if not request.user.is_staff:
+        return redirect("mascotas") 
+    
+    if request.method == "POST":
         form = Petform(request.POST)
         if form.is_valid():
             pet = form.save(commit=False)
@@ -39,10 +43,14 @@ def view_create_pet(request):
     return render(request, "formulario.html", {"form": form})
 
 
-# UPDATE
+# UPDATE PET
 @login_required
 def view_edit_pet(request, id_pet):
     old_pet = get_object_or_404(Pet, id=id_pet)
+
+    if not request.user.is_staff:
+        return redirect("mascotas") 
+    
     if request.user.is_staff and request.method == "POST":
         # Metemos los datos nuevos (POST), pero avisando de que sobreescriban a (instance=old_pet)
         form = Petform(request.POST, instance=old_pet)
@@ -54,9 +62,12 @@ def view_edit_pet(request, id_pet):
     return render(request, "formulario.html", {"form": form})
 
 
-# DELETE 
+# DELETE PET
 @login_required
 def view_del_pet(request, id_pet):
+    if not request.user.is_staff:
+        return redirect("mascotas") 
+    
     if request.user.is_staff:
         pet = get_object_or_404(Pet, id=id_pet)
         if request.method == "POST":
@@ -66,7 +77,7 @@ def view_del_pet(request, id_pet):
 
 """ Vistas de CITAS (APPOINTMENTS)"""
 
-# READ MÚLTIPLE
+# READ CITAS
 @login_required
 def view_appointments(request):
     if request.user.is_staff:
@@ -81,9 +92,11 @@ def view_appointments(request):
 
 """ Vistas de VACUNAS """
 
-# READ MÚLTIPLE
+# READ VACUNAS
 @login_required
 def view_vaccines(request):
+    if not request.user.is_staff:
+        return redirect("mascotas") 
     if request.user.is_staff:
         all_vaccines = Vaccines.objects.all()
         return render(

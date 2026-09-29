@@ -16,7 +16,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-b1$(j91^k(n^0uk0o(1mqqauf0%b0ri!x!(mvx)7nn&^rzc)&j'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = [
     ".vercel.app",
@@ -147,6 +147,7 @@ MAILERS = {
 
 
 # Direct URL
-LOGIN_REDIRECT_URL = "mascotas"
-
 LOGIN_URL = "login"
+LOGIN_REDIRECT_URL = "mascotas"
+LOGOUT_REDIRECT_URL = 'mascotas'
+

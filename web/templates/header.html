@@ -1,0 +1,22 @@
+<header class="header">
+    <nav class="header-nav">
+        <div class="logo-container">
+            <a class="logo-menu" href="">Animalia</a>
+        </div>
+        {% if user.is_authenticated %}
+        <div class="nav-user-logged">
+            <a href="">Mascotas</a>
+            <a href="">Citas</a>
+        </div>
+        {% endif %}
+        <div class="nav-login">
+            {% if not user.is_authenticated %}
+            <a href="" class="btn btn-login">Iniciar</a>
+            <a href="" class="btn btn-logout">Crear cuenta</a>
+            {% endif %}
+            {% if user.is_authenticated %}
+            <a href="" class="btn btn-logout">Cerrar sesión</a>
+            {% endif %}
+        </div>
+    </nav>
+</header>

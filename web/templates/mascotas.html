@@ -1,16 +1,24 @@
 {% extends 'index.html' %}
 {% block content %}
-<section class="section-pets">
-    <h2 class="title-pet">Macotas de {{ user.username }}</h2>
-    <ul class="list-pets">
-        {% for elemento in mascotas %}
-        <li class="li-pet">
-            {{ elemento.name }}
-        </li>
-        {% endfor %}
-    </ul>
-    {% if user.is_authenticated and user.is_staff %}
-    <a class="btn" href="{% url 'añadir mascota' %}">Añadir Mascota</a>
-    {% endif %}
-</section>
+<div class="pets-page-container">
+    <section class="section-pets">
+        <div class="pets-header">
+            <h2 class="title-pet">Mascotas de <span>{{ user.username }}</span></h2>
+            {% if user.is_authenticated and user.is_staff %}
+            <a class="btn btn-add-pet" href="{% url 'añadir mascota' %}">+ Añadir Mascota</a>
+            {% endif %}
+        </div>
+
+        <ul class="list-pets">
+            {% for elemento in mascotas %}
+            <li class="li-pet">
+                <span class="pet-icon">🐾</span>
+                <span class="pet-name">{{ elemento.name }}</span>
+            </li>
+            {% empty %}
+            <li class="empty-pets">No hay mascotas registradas todavía.</li>
+            {% endfor %}
+        </ul>
+    </section>
+</div>
 {% endblock %}

@@ -3,7 +3,16 @@
 <div class="pets-page-container">
     <section class="section-pets">
         <div class="pets-header">
-            <h2 class="title-pet">Mascotas de <span>{{ user.username }}</span></h2>
+            <h2 class="title-pet">
+                Mascotas de
+                <span>
+                    {% if request.user.is_staff %}
+                    Animalia
+                    {% else %}
+                    {{ user.username|title }}
+                    {% endif %}
+                </span>
+            </h2>
             {% if user.is_authenticated and user.is_staff %}
             <a class="btn btn-add-pet" href="{% url 'añadir mascota' %}">+ Añadir Mascota</a>
             {% endif %}

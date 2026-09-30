@@ -9,7 +9,9 @@ urlpatterns = [
         auth_views.LoginView.as_view(template_name="formulario.html"),
         name="login",
     ),
+    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path("admin/", admin.site.urls),
+    # Mascotas
     path("mascotas/", views.view_pets, name="mascotas"),
     path("mascotas/<int:id_pet>/", views.view_detail, name="detalle"),
     path("mascotas/añadir/", views.view_create_pet, name="añadir mascota"),

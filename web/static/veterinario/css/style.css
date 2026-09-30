@@ -1,54 +1,54 @@
 /* RESET CSS */
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 a {
-    text-decoration: none;
-    color: inherit;
+  text-decoration: none;
+  color: inherit;
 }
 
 li {
-    list-style: none;
+  list-style: none;
 }
 
 img {
-    max-width: 100%;
-    display: block;
+  max-width: 100%;
+  display: block;
 }
 
 /* Fonts */
 
 .title-xl {
-    font-size: 7.5rem;
+  font-size: 7.5rem;
 }
 
 .title-l {
-    font-size: 5rem;
+  font-size: 5rem;
 }
 
 .text-m {
-    font-size: 1.25rem;
-    max-width: 50rem;
+  font-size: 1.25rem;
+  max-width: 50rem;
 }
 
 /* Navbar */
 
 .header-nav {
-    display: flex;
-    justify-content: space-between;
-    padding: 1.5rem;
-    border-bottom: solid 2px #000;
+  display: flex;
+  justify-content: space-between;
+  padding: 1.5rem;
+  border-bottom: solid 2px #000;
 }
 
 /* Formulario */
 
 .errorlist {
-    margin-bottom: 2rem;
-    color: #e00000;
+  margin-bottom: 2rem;
+  color: #e00000;
 }
 
 form {
@@ -127,8 +127,97 @@ form button[type="submit"]:active {
 /* Principal */
 
 .section-login {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+
+/* 404 */
+.section-404 {
+  background-color: #ffffff;
+  width: 100%;
+  max-width: 650px;
+  padding: 50px 30px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+  text-align: center;
+}
+
+/* Contenedor interno */
+.container-404 {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+/* Números 404 */
+.illustration-404 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.num {
+  font-size: 8rem;
+  font-weight: 300;
+  line-height: 1;
+  color: #1b2a4a;
+}
+
+/* Textos */
+.title-xl {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1b2a4a;
+  margin-bottom: 15px;
+}
+
+.text-m {
+  font-size: 0.95rem;
+  color: #64748b;
+  line-height: 1.6;
+  margin-bottom: 30px;
+}
+
+/* Botón de acción */
+.container {
+  display: flex;
+  justify-content: center;
+}
+
+.btn-back {
+  display: inline-block;
+  background-color: #78b1a8;
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 14px 32px;
+  border-radius: 50px;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.btn-back:hover {
+  background-color: #639a91;
+  transform: translateY(-2px);
+}
+
+/* Ajustes para móviles */
+@media (max-width: 480px) {
+  .section-404 {
+    padding: 40px 20px;
+  }
+
+  .num {
+    font-size: 5.5rem;
+  }
+
+  .title-xl {
+    font-size: 1.25rem;
+  }
 }

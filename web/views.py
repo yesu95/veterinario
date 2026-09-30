@@ -102,8 +102,3 @@ def view_vaccines(request):
         return render(
             request, "vacunas.html", {"vacunas": all_vaccines}
     )
-
-
-# ERROR 404
-def view_404(request, exception=None):
-    return render(request, '404.html', status=404)

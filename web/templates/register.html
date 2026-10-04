@@ -1,0 +1,91 @@
+{% extends 'index.html' %}
+
+{% block content %}
+<div class="login-page-container">
+
+    <div class="login-wrapper">
+
+        <div class="login-content">
+            <section class="section-login">
+                <h1 class="title-xl">Animalia</h1>
+                <p class="text-m">
+                    Crea tu cuenta en el portal veterinario para empezar a gestionar las citas y la salud de tus
+                    mascotas.
+                </p>
+            </section>
+
+            <form class="form" method="POST">
+                {% csrf_token %}
+
+                {% if form.non_field_errors %}
+                <div class="alert alert-error">
+                    {% for error in form.non_field_errors %}
+                    <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+                {% endif %}
+
+                <div class="form-group">
+                    <label for="{{ form.username.id_for_label }}">Nombre de usuario</label>
+                    {{ form.username }}
+                    {% if form.username.errors %}
+                    <span class="field-error">{{ form.username.errors.0 }}</span>
+                    {% endif %}
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="{{ form.first_name.id_for_label }}">Nombre</label>
+                        {{ form.first_name }}
+                        {% if form.first_name.errors %}
+                        <span class="field-error">{{ form.first_name.errors.0 }}</span>
+                        {% endif %}
+                    </div>
+
+                    <div class="form-group">
+                        <label for="{{ form.last_name.id_for_label }}">Apellidos</label>
+                        {{ form.last_name }}
+                        {% if form.last_name.errors %}
+                        <span class="field-error">{{ form.last_name.errors.0 }}</span>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.email.id_for_label }}">Correo electrónico</label>
+                    {{ form.email }}
+                    {% if form.email.errors %}
+                    <span class="field-error">{{ form.email.errors.0 }}</span>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.password1.id_for_label }}">Contraseña</label>
+                    {{ form.password1 }}
+                    {% if form.password1.errors %}
+                    <span class="field-error">{{ form.password1.errors.0 }}</span>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.password2.id_for_label }}">Confirmar contraseña</label>
+                    {{ form.password2 }}
+                    {% if form.password2.errors %}
+                    <span class="field-error">{{ form.password2.errors.0 }}</span>
+                    {% endif %}
+                </div>
+
+                <button type="submit" class="btn-submit">Crear cuenta</button>
+
+            </form>
+        </div>
+
+        <div class="login-image-container">
+            <img src="https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=1000&q=80"
+                alt="Perro feliz" class="login-image">
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}

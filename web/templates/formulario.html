@@ -1,4 +1,5 @@
 {% extends 'index.html' %}
+{% load static %}
 
 {% block content %}
 <div class="login-page-container">
@@ -18,8 +19,7 @@
         </div>
 
         <div class="login-image-container">
-            <img src="https://images.unsplash.com/photo-1518020382113-a7e8fc38eac9?q=80&w=717&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                alt="Perro feliz" class="login-image">
+            <img src="{% static 'veterinario/img/background02.jpg' %}" alt="Perrito" class="login-image">
         </div>
 
     </div>

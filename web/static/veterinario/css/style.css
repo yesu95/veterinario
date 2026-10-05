@@ -126,7 +126,7 @@ body {
 .login-wrapper {
   display: flex;
   width: 100%;
-  max-width: 80vw;
+  max-width: 70vw;
   height: 100%;
   background-color: #ffffff;
   border-radius: 2.5rem;
@@ -214,6 +214,10 @@ body {
   -webkit-appearance: none;
 }
 
+.errorlist {
+  margin-bottom: 1.5rem;
+}
+
 .form input[type="date"]::-webkit-calendar-picker-indicator {
   cursor: pointer;
   filter: invert(40%) sepia(80%) saturate(1500%) hue-rotate(190deg);
@@ -264,6 +268,61 @@ body {
 
 /* Mascotas */
 
+.delete-dialog {
+  border: none;
+  border-radius: 2.5rem;
+  padding: 2.5rem;
+  box-shadow: 0 1.25rem 3.125rem rgba(0, 0, 0, 0.25);
+  background-color: #ffffff;
+  max-width: 26rem;
+  width: 90%;
+  margin: auto;
+}
+
+.delete-dialog p {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 2rem;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.delete-dialog p strong {
+  color: #2292ff;
+}
+
+.delete-dialog form {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.delete-dialog form .btn {
+  padding: 0.75rem 1.5rem;
+  font-size: 0.875rem;
+  font-weight: 800;
+  border-radius: 2rem;
+  cursor: pointer;
+}
+
+.delete-dialog form button[type="button"] {
+  background-color: #f3f4f6;
+  color: #4b5563;
+  border: 0.125rem solid #e5e7eb;
+}
+
+.delete-dialog form button[type="button"]:hover {
+  background-color: #e5e7eb;
+  color: #111827;
+}
+
+.delete-dialog::backdrop {
+  background: rgba(17, 24, 39, 0.6);
+  backdrop-filter: blur(0.5rem);
+  -webkit-backdrop-filter: blur(0.5rem);
+}
+
 .pets-page-container {
   display: flex;
   justify-content: center;
@@ -276,7 +335,7 @@ body {
 
 .section-pets {
   width: 100%;
-  max-width: 56.25rem;
+  max-width: 68.75rem;
   background-color: #ffffff;
   border-radius: 2.5rem;
   padding: 2.5rem;
@@ -323,7 +382,7 @@ body {
 .list-pets {
   list-style: none;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(13.75rem, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1.25rem;
 }
 
@@ -333,10 +392,10 @@ body {
   border-radius: 1.5rem;
   padding: 1.25rem 1.5rem;
   display: flex;
-  align-items: center;
-  gap: 1rem;
+  flex-direction: column;
+  gap: 0.875rem;
   transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
-  cursor: pointer;
+  min-width: 0;
 }
 
 .li-pet:hover {
@@ -345,20 +404,76 @@ body {
   box-shadow: 0 0.625rem 1.25rem rgba(34, 146, 255, 0.15);
 }
 
+.pet-info-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  min-width: 0;
+}
+
+.pet-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+  min-width: 0;
+  flex: 1;
+}
+
 .pet-icon {
   font-size: 1.5rem;
   background-color: rgba(34, 146, 255, 0.1);
   padding: 0.625rem;
   border-radius: 1rem;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-shrink: 0;
 }
 
 .pet-name {
   font-size: 1.1rem;
   font-weight: 800;
   color: #111827;
+  text-transform: capitalize;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pet-name a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.pet-name a:hover {
+  color: #2292ff;
+}
+
+.pet-owner {
+  color: #304879;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: capitalize;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.btn-delete-pet {
+  background-color: #ff3b77;
+  color: #ffffff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 2rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 0.25rem 0.75rem rgba(255, 59, 119, 0.25);
+  transition: background-color 0.2s, transform 0.2s;
+  align-self: flex-start;
+  width: 100%;
+}
+
+.btn-delete-pet:hover {
+  background-color: #e02e65;
+  transform: translateY(-0.0625rem);
 }
 
 .empty-pets {
@@ -370,6 +485,12 @@ body {
 }
 
 /* Responsive */
+
+@media (max-width: 64rem) {
+  .list-pets {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
 
 @media (max-width: 48rem) {
 

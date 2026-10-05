@@ -13,7 +13,7 @@ import logging
 def view_pets(request):
     if request.user.is_staff:
         all_pets = Pet.objects.all()
-        logging.info(f"Mostrando todas las mascotas del usuario {request.user}.")
+        logging.info(f"Mostrando todas las mascotas del centro por el usuario {request.user}.")
 
     else:
         all_pets = Pet.objects.filter(user=request.user)
@@ -67,7 +67,7 @@ def view_edit_pet(request, id_pet):
         if form.is_valid():
             form.save()
             logging.info(f"La mascota {old_pet.name} fue actualizada exitosamente por el usuario {request.user}.")
-            return redirect("detalle", id_pet=old_pet.id)
+            return redirect("detalle mascota", id_pet=old_pet.id)
     else:
         form = Petform(instance=old_pet) # Formulario YA relleno
     return render(request, "formulario.html", {"form": form,
@@ -78,16 +78,14 @@ def view_edit_pet(request, id_pet):
 @login_required
 def view_del_pet(request, id_pet):
     if not request.user.is_staff:
-        logging.warning(f"El usuario {request.user} intentó acceder a la vista de eliminación de mascotas sin permisos.")
-        return redirect("mascotas") 
-    
-    if request.user.is_staff:
-        pet = get_object_or_404(Pet, id=id_pet)
-        if request.method == "POST":
-            pet.delete()
-            logging.info(f"La mascota {pet.name} fue eliminada exitosamente por el usuario {request.user}.")
-            return redirect("mascotas")
-        return render(request, "confirmar_borrado.html", {"Mascota": pet})
+        logging.warning(f"El usuario {request.user} intentó eliminar una mascota sin permisos.")
+        return redirect("mascotas")
+
+    pet = get_object_or_404(Pet, id=id_pet)
+    if request.method == "POST":
+        pet.delete()
+        logging.info(f"La mascota {pet.name} fue eliminada exitosamente por el usuario {request.user}.")
+    return redirect("mascotas")
 
 """ Vistas de CITAS (APPOINTMENTS)"""
 

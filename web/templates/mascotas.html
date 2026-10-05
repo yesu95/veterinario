@@ -22,7 +22,26 @@
             {% for elemento in mascotas %}
             <li class="li-pet">
                 <span class="pet-icon">🐾</span>
-                <span class="pet-name">{{ elemento.name }}</span>
+                <span class="pet-name">
+                    <a href="{% url 'detalle mascota' elemento.id %}">{{ elemento.name }}</a>
+                </span>
+                <span class="pet-owner">{{ elemento.user.username }}</span>
+
+                {% if user.is_authenticated and user.is_staff %}
+                <button type="button" class="btn btn-delete-pet"
+                    onclick="document.getElementById('dialog-{{ elemento.id }}').showModal()">
+                    🗑 Eliminar
+                </button>
+
+                <dialog id="dialog-{{ elemento.id }}" class="delete-dialog">
+                    <p>¿Seguro que quieres eliminar a <strong>{{ elemento.name }}</strong>?</p>
+                    <form method="post" action="{% url 'borrar mascota' elemento.id %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-delete-pet">Sí, eliminar</button>
+                        <button type="button" class="btn" onclick="this.closest('dialog').close()">Cancelar</button>
+                    </form>
+                </dialog>
+                {% endif %}
             </li>
             {% empty %}
             <li class="empty-pets">No hay mascotas registradas todavía.</li>

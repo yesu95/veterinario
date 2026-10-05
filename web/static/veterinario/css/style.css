@@ -428,9 +428,16 @@ body {
   flex-shrink: 0;
 }
 
+.pet-icon-img {
+  width: 5rem;
+  height: 5rem;
+  border-radius: 100%;
+  box-shadow: 0 0.15rem 0.5rem rgb(76 167 255 / 15%);
+}
+
 .pet-name {
-  font-size: 1.1rem;
-  font-weight: 800;
+  font-size: 1.35rem;
+  font-weight: 700;
   color: #111827;
   text-transform: capitalize;
   white-space: nowrap;
@@ -447,10 +454,18 @@ body {
   color: #2292ff;
 }
 
+.pet-species {
+  color: #6b7280;
+  font-weight: 500;
+  text-transform: capitalize;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .pet-owner {
   color: #304879;
-  font-size: 0.875rem;
-  font-weight: 600;
+  font-weight: 800;
   text-transform: capitalize;
   white-space: nowrap;
   overflow: hidden;

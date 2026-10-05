@@ -1,4 +1,6 @@
 {% extends 'index.html' %}
+{% load static %}
+
 {% block content %}
 <div class="pets-page-container">
     <section class="section-pets">
@@ -21,11 +23,16 @@
         <ul class="list-pets">
             {% for elemento in mascotas %}
             <li class="li-pet">
-                <span class="pet-icon">🐾</span>
-                <span class="pet-name">
-                    <a href="{% url 'detalle mascota' elemento.id %}">{{ elemento.name }}</a>
-                </span>
-                <span class="pet-owner">{{ elemento.user.username }}</span>
+                <div class="pet-info-wrapper">
+                    <img src="{% static 'veterinario/img/pet-icon.png' %}" alt="Mascota" class="pet-icon-img" />
+
+                    <div class="pet-details">
+                        <span class="pet-name">
+                            <a href="{% url 'detalle mascota' elemento.id %}">{{ elemento.name }}</a>
+                        </span>
+                        <span class="pet-owner">{{ elemento.user.username }}</span>
+                    </div>
+                </div>
 
                 {% if user.is_authenticated and user.is_staff %}
                 <button type="button" class="btn btn-delete-pet"

@@ -1,6 +1,6 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.models import Permission, User
-from django.contrib.auth.decorators import login_required   
+from django.contrib.auth.decorators import login_required 
 from .models import Appointment, Pet, Vaccines
 from .forms import Petform, RegisterForm
 import logging
@@ -14,10 +14,9 @@ def view_pets(request):
     if request.user.is_staff:
         all_pets = Pet.objects.all()
         logging.info(f"Mostrando todas las mascotas del centro por el usuario {request.user}.")
-
     else:
         all_pets = Pet.objects.filter(user=request.user)
-        logging.info(f"Mostrando todas las mascotas del centro.")
+        logging.info(f"Mostrando todas las mascotas del usuario {request.user}.")
     return render(request, 'mascotas.html', {'mascotas': all_pets})
 
 # READ INDIVIDUAL PET
@@ -29,7 +28,6 @@ def view_detail(request, id_pet):
 
 
 # CREATE PET
-""" Si NO es staff, me devuelve a mascotas, SI ES me pinta /añadir """
 @login_required
 def view_create_pet(request):
     if not request.user.is_staff:
@@ -61,17 +59,15 @@ def view_edit_pet(request, id_pet):
         logging.warning(f"El usuario {request.user} intentó acceder a la vista de edición de mascotas sin permisos.")   
         return redirect("mascotas") 
     
-    if request.user.is_staff and request.method == "POST":
-        # Metemos los datos nuevos (POST), pero avisando de que sobreescriban a (instance=old_pet)
+    if request.method == "POST":
         form = Petform(request.POST, instance=old_pet)
         if form.is_valid():
             form.save()
             logging.info(f"La mascota {old_pet.name} fue actualizada exitosamente por el usuario {request.user}.")
             return redirect("detalle mascota", id_pet=old_pet.id)
     else:
-        form = Petform(instance=old_pet) # Formulario YA relleno
-    return render(request, "formulario.html", {"form": form,
-                                               "titulo": "Editar mascota"})
+        form = Petform(instance=old_pet)
+    return render(request, "formulario.html", {"form": form, "titulo": "Editar mascota"})
 
 
 # DELETE PET
@@ -81,11 +77,14 @@ def view_del_pet(request, id_pet):
         logging.warning(f"El usuario {request.user} intentó eliminar una mascota sin permisos.")
         return redirect("mascotas")
 
-    pet = get_object_or_404(Pet, id=id_pet)
     if request.method == "POST":
+        pet = get_object_or_404(Pet, id=id_pet)
+        pet_name = pet.name
         pet.delete()
-        logging.info(f"La mascota {pet.name} fue eliminada exitosamente por el usuario {request.user}.")
+        logging.info(f"La mascota {pet_name} fue eliminada exitosamente por el usuario {request.user}.")
+    
     return redirect("mascotas")
+
 
 """ Vistas de CITAS (APPOINTMENTS)"""
 
@@ -94,14 +93,11 @@ def view_del_pet(request, id_pet):
 def view_appointments(request):
     if request.user.is_staff:
         all_appointments = Appointment.objects.all()
-        logging.info(f"Mostrando todas las citas médicas del usuario {request.user}.")
-        return render(
-    request, "citas.html", {"citas": all_appointments})
+        logging.info(f"Mostrando todas las citas médicas por el usuario {request.user}.")
     else:
         all_appointments = Appointment.objects.filter(user=request.user)
         logging.info(f"Mostrando citas médicas del usuario {request.user}.")
-        return render(
-            request, "citas.html", {"citas": all_appointments})
+    return render(request, "citas.html", {"citas": all_appointments})
 
 # CREATE CITAS
 @login_required 
@@ -126,13 +122,12 @@ def view_del_appointment(request, id_appointment):
         logging.warning(f"El usuario {request.user} intentó acceder a la vista de eliminación de citas médicas sin permisos.")
         return redirect("mascotas") 
     
-    if request.user.is_staff:
-        appointment = get_object_or_404(Appointment, id=id_appointment)
-        if request.method == "POST":
-            appointment.delete()
-            logging.info(f"La cita médica con ID {id_appointment} fue eliminada exitosamente por el usuario {request.user}.")
-            return redirect("citas")
-        return render(request, "confirmar_borrado.html", {"Cita": appointment}) 
+    appointment = get_object_or_404(Appointment, id=id_appointment)
+    if request.method == "POST":
+        appointment.delete()
+        logging.info(f"La cita médica con ID {id_appointment} fue eliminada exitosamente por el usuario {request.user}.")
+        return redirect("citas")
+    return render(request, "confirmar_borrado.html", {"Cita": appointment}) 
 
 
 """ Vistas de VACUNAS """
@@ -143,12 +138,10 @@ def view_vaccines(request):
     if not request.user.is_staff:
         logging.warning(f"El usuario {request.user} intentó acceder a la vista de vacunas sin permisos.")
         return redirect("mascotas") 
-    if request.user.is_staff:
-        all_vaccines = Vaccines.objects.all()
-        logging.info(f"Mostrando todas las vacunas del usuario {request.user}.")
-        return render(
-            request, "vacunas.html", {"vacunas": all_vaccines}
-    )
+    
+    all_vaccines = Vaccines.objects.all()
+    logging.info(f"Mostrando todas las vacunas por el usuario {request.user}.")
+    return render(request, "vacunas.html", {"vacunas": all_vaccines})
 
 # CREATE VACUNAS
 @login_required
@@ -157,7 +150,7 @@ def view_create_vaccine(request):
         logging.warning(f"El usuario {request.user} intentó acceder a la vista de creación de vacunas sin permisos.")
         return redirect("mascotas") 
     
-    if request.user.is_staff and request.method == "POST":
+    if request.method == "POST":
         name = request.POST.get("name")
         description = request.POST.get("description")
         vaccine = Vaccines(name=name, description=description)
@@ -175,13 +168,12 @@ def view_del_vaccine(request, id_vaccine):
         logging.warning(f"El usuario {request.user} intentó acceder a la vista de eliminación de vacunas sin permisos.")
         return redirect("mascotas") 
     
-    if request.user.is_staff:
-        vaccine = get_object_or_404(Vaccines, id=id_vaccine)
-        if request.method == "POST":
-            vaccine.delete()
-            logging.info(f"La vacuna {vaccine.name} fue eliminada exitosamente por el usuario {request.user}.")
-            return redirect("vacunas")
-        return render(request, "confirmar_borrado.html", {"Vacuna": vaccine})
+    vaccine = get_object_or_404(Vaccines, id=id_vaccine)
+    if request.method == "POST":
+        vaccine.delete()
+        logging.info(f"La vacuna {vaccine.name} fue eliminada exitosamente por el usuario {request.user}.")
+        return redirect("vacunas")
+    return render(request, "confirmar_borrado.html", {"Vacuna": vaccine})
 
 
 """ Vistas de REGISTRO USUARIO """

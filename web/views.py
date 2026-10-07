@@ -2,7 +2,7 @@ from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.models import Permission, User
 from django.contrib.auth.decorators import login_required 
 from .models import Appointment, Pet, Vaccines
-from .forms import Petform, RegisterForm
+from .forms import AppointmentForm, Petform, RegisterForm
 import logging
 
 
@@ -38,7 +38,9 @@ def view_create_pet(request):
         form = Petform(request.POST)
         logging.info(f"El usuario {request.user} está intentando crear una nueva mascota.")
         if form.is_valid():
-            pet = form.save()
+            pet = form.save(commit=False)
+            pet.user = request.user
+            pet.save()
             logging.info(f"La mascota {pet.name} fue asignada a {pet.user} exitosamente por {request.user}.")
             return redirect("mascotas")
     else:
@@ -103,17 +105,18 @@ def view_appointments(request):
 @login_required 
 def view_create_appointment(request):
     if request.method == "POST":
-        pet_id = request.POST.get("pet")
-        date = request.POST.get("date")
-        time = request.POST.get("time")
-        appointment = Appointment(pet_id=pet_id, date=date, time=time, user=request.user)
-        appointment.save()
-        logging.info(f"La cita médica para la mascota con ID {pet_id} fue creada exitosamente por el usuario {request.user}.")
-        return redirect("citas")
+        form = AppointmentForm(request.POST)
+        if form.is_valid():
+            appointment = form.save(commit=False)
+            appointment.user = request.user
+            appointment.save()
+            logging.info(f"La cita médica fue creada exitosamente por el usuario {request.user}.")
+            return redirect("citas")
     else:
-        pets = Pet.objects.filter(user=request.user)
+        form = AppointmentForm()
         logging.info(f"El usuario {request.user} accedió a la vista de creación de citas médicas.")
-    return render(request, "añadir_cita.html", {"mascotas": pets, "titulo": "Crear cita"})
+
+    return render(request, "añadir_cita.html", {"form": form, "titulo": "Crear cita"})
 
 # DELETE CITAS
 @login_required 

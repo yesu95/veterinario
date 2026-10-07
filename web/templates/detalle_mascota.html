@@ -1,0 +1,42 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block content %}
+<div class="pets-page-container">
+    <div class="pet-card-detail">
+        <div class="pet-info-wrapper">
+            <img src="{% static 'veterinario/img/pet-icon.png' %}" alt="Mascota" class="pet-icon-img" />
+            <div class="pet-details">
+                <h2 class="pet-name">{{ mascota.name }}</h2>
+                <span class="pet-owner">Dueño: {{ mascota.user.username }}</span>
+            </div>
+        </div>
+
+        <ul class="pet-data-list">
+            <li><strong>Especie:</strong> {{ mascota.species }}</li>
+            <li><strong>Raza:</strong> {{ mascota.breed }}</li>
+            <li><strong>Fecha de nacimiento:</strong> {{ mascota.birth_date }}</li>
+            <li><strong>Edad:</strong> {{ mascota.age }} años</li>
+        </ul>
+
+        {% if user.is_staff %}
+        <div class="pet-actions-group">
+            <a class="btn btn-edit-pet" href="{% url 'editar mascota' id_pet=mascota.id %}">Editar</a>
+            <button type="button" class="btn btn-delete-pet"
+                onclick="document.getElementById('dialog-{{ mascota.id }}').showModal()">Eliminar</button>
+        </div>
+
+        <dialog id="dialog-{{ mascota.id }}" class="delete-dialog">
+            <p>¿Eliminar a <strong>{{ mascota.name }}</strong>?</p>
+            <form method="post" action="{% url 'borrar mascota' id_pet=mascota.id %}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-delete-pet">Sí, eliminar</button>
+                <button type="button" class="btn" onclick="this.closest('dialog').close()">Cancelar</button>
+            </form>
+        </dialog>
+        {% endif %}
+
+        <a href="{% url 'mascotas' %}" class="btn btn-back-pet">Volver al listado</a>
+    </div>
+</div>
+{% endblock %}

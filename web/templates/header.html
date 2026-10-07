@@ -6,8 +6,8 @@
 
         {% if user.is_authenticated %}
         <div class="nav-user-logged">
-            <a href="">Mascotas</a>
-            <a href="">Citas</a>
+            <a href="{% url 'mascotas' %}">Mascotas</a>
+            <a href="{% url 'citas' %}">Citas</a>
         </div>
         {% endif %}
 

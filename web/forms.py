@@ -1,9 +1,10 @@
 from django import forms
 from django.utils import timezone
-from .models import Pet
+from .models import Pet, Appointment, Vaccines
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 
+""" Formulario para las pets """
 class Petform(forms.ModelForm):
     user = forms.ModelChoiceField(
         queryset=User.objects.filter(is_staff=False, is_superuser=False),
@@ -40,8 +41,27 @@ class Petform(forms.ModelForm):
         return birth_date
         
 
-""" Form de registro de usuario """
+""" Form de citas """
+class AppointmentForm(forms.ModelForm):
+    class Meta:
+        model = Appointment
+        fields = ["user", "date_appointment", "time", "reason"]
 
+        labels = {
+            "user": "Usuario",
+            "date_appointment": "Fecha de la cita",
+            "time": "Hora",
+            "reason": "Motivo",
+        }
+
+        widgets = {
+            "date_appointment": forms.DateInput(attrs={"type": "date"}),
+            "time": forms.TimeInput(attrs={"type": "time"}),
+            "reason": forms.Textarea(attrs={"class": "input-field", "placeholder": "Describe el motivo de la cita"}),
+        }
+
+
+""" Form de registro de usuario """
 class RegisterForm(UserCreationForm):
     first_name = forms.CharField(
         max_length=30, 

@@ -43,7 +43,7 @@ class Appointment(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)    
     date_appointment = models.DateField() 
     reason = models.CharField(max_length=255)
-    veterinarian = models.CharField(max_length=100)
+    time = models.TimeField()
 
     def __str__(self):
-        return f"Cita con: {self.veterinarian} el día {self.date_appointment}"
+        return f"Cita el día {self.date_appointment} a las {self.time}"

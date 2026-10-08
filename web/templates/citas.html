@@ -25,9 +25,9 @@
                     <img src="{% static 'veterinario/img/pet-icon.png' %}" alt="Mascota" class="pet-icon-img" />
 
                     <div class="pet-details">
-                        <span class="pet-name">{{ cita.pet.name }}</span>
+                        <span class="pet-reason">{{ cita.reason }}</span>
                         <span class="pet-owner">
-                            📅 {{ cita.date|date:"d/m/Y" }} · 🕒 {{ cita.time|time:"H:i" }}
+                            📅 {{ cita.date_appointment|date:"d/m/Y" }} · 🕒 {{ cita.time|time:"H:i" }}
                         </span>
                         {% if request.user.is_staff %}
                         <span class="pet-owner">Propietario: {{ cita.user.username }}</span>
@@ -42,8 +42,8 @@
                 </button>
 
                 <dialog id="dialog-cita-{{ cita.id }}" class="delete-dialog">
-                    <p>¿Seguro que quieres eliminar la cita de <strong>{{ cita.pet.name }}</strong>
-                        del {{ cita.date|date:"d/m/Y" }} a las {{ cita.time|time:"H:i" }}?</p>
+                    <p>¿Seguro que quieres eliminar la cita de <span class="user-popup">{{ cita.user.username }}</span>
+                        del {{ cita.date_appointment|date:"d/m/Y" }} a las {{ cita.time|time:"H:i" }}?</p>
                     <form method="post" action="{% url 'borrar cita' cita.id %}">
                         {% csrf_token %}
                         <button type="submit" class="btn btn-delete-pet">Sí, eliminar</button>

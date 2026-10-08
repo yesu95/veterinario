@@ -52,6 +52,7 @@ def view_create_pet(request):
         "titulo": "Crear mascota"
     })
 
+
 # UPDATE PET
 @login_required
 def view_edit_pet(request, id_pet):
@@ -101,18 +102,17 @@ def view_appointments(request):
         logging.info(f"Mostrando citas médicas del usuario {request.user}.")
     return render(request, "citas.html", {"citas": all_appointments})
 
+
 # CREATE CITAS
 @login_required 
 def view_create_appointment(request):
     if request.method == "POST":
         form = AppointmentForm(request.POST)
         if form.is_valid():
-            appointment = form.save(commit=False)
-            appointment.user = request.user
-            appointment.save()
+            form.save()
             logging.info(f"La cita médica fue creada exitosamente por el usuario {request.user}.")
             return redirect("citas")
-    else:
+    else: 
         form = AppointmentForm()
         logging.info(f"El usuario {request.user} accedió a la vista de creación de citas médicas.")
 
@@ -130,7 +130,7 @@ def view_del_appointment(request, id_appointment):
         appointment.delete()
         logging.info(f"La cita médica con ID {id_appointment} fue eliminada exitosamente por el usuario {request.user}.")
         return redirect("citas")
-    return render(request, "confirmar_borrado.html", {"Cita": appointment}) 
+    return render(request, "citas.html", {"Cita": appointment}) 
 
 
 """ Vistas de VACUNAS """
@@ -145,6 +145,7 @@ def view_vaccines(request):
     all_vaccines = Vaccines.objects.all()
     logging.info(f"Mostrando todas las vacunas por el usuario {request.user}.")
     return render(request, "vacunas.html", {"vacunas": all_vaccines})
+
 
 # CREATE VACUNAS
 @login_required
@@ -163,6 +164,7 @@ def view_create_vaccine(request):
     else:
         logging.info(f"El usuario {request.user} accedió a la vista de creación de vacunas.")
     return render(request, "añadir_vacuna.html", {"titulo": "Crear vacuna"})
+
 
 # DELETE VACUNAS
 @login_required

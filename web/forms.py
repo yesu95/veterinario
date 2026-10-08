@@ -31,10 +31,10 @@ class Petform(forms.ModelForm):
             ),
         }
 
+    # Comprobación fecha nacimiento no sea menor que la actual
     def clean_birth_date(self):
         birth_date = self.cleaned_data.get("birth_date")
         
-        # Validación en el servidor
         if birth_date and birth_date > timezone.now().date():
             raise forms.ValidationError("La fecha de nacimiento no puede ser una fecha futura.")
             
@@ -61,6 +61,16 @@ class AppointmentForm(forms.ModelForm):
         }
 
 
+    # Comprobación fecha cita no sea menor que la actual
+    def clean_date_appointment(self):
+        date = self.cleaned_data.get("date_appointment")
+    
+        if date and date < timezone.now().date():
+            raise forms.ValidationError("La cita no puede ser una fecha pasada.")
+        
+        return date
+
+    
 """ Form de registro de usuario """
 class RegisterForm(UserCreationForm):
     first_name = forms.CharField(

@@ -27,7 +27,7 @@
 html,
 body {
   min-height: 100vh;
-  background-color: var(--cream);
+  background: var(--cream-hero);
   color: var(--ink);
   font-family: var(--font-body);
 }
@@ -157,13 +157,13 @@ input, button, select, textarea {
   flex: 1;
   width: 100%;
   padding: 4rem 1.5rem;
-  background: var(--cream-hero);
 }
 
 .login-wrapper {
   display: flex;
   width: 100%;
   max-width: 70vw;
+  min-height: 40rem;
   background-color: var(--purple);
   border-radius: 2rem;
   overflow: hidden;
@@ -175,6 +175,7 @@ input, button, select, textarea {
   padding: 2.5rem 3rem;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   background-color: var(--purple);
   color: #ffffff;
 }
@@ -276,6 +277,12 @@ input, button, select, textarea {
 .form .helptext {
   font-size: 0.75rem;
   color: rgba(255, 255, 255, 0.7);
+}
+
+.field-error {
+  color: var(--yellow);
+  margin-top: .5rem;
+  display: block;
 }
 
 .errorlist {

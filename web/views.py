@@ -2,7 +2,7 @@ from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.models import Permission, User
 from django.contrib.auth.decorators import login_required 
 from .models import Appointment, Pet, Vaccines
-from .forms import AppointmentForm, Petform, RegisterForm
+from .forms import AppointmentForm, Petform, RegisterForm, VaccineForm
 import logging
 
 
@@ -106,15 +106,19 @@ def view_appointments(request):
 # CREATE CITAS
 @login_required 
 def view_create_appointment(request):
-    if request.method == "POST":
-        form = AppointmentForm(request.POST)
-        if form.is_valid():
-            form.save()
-            logging.info(f"La cita médica fue creada exitosamente por el usuario {request.user}.")
-            return redirect("citas")
-    else: 
-        form = AppointmentForm()
-        logging.info(f"El usuario {request.user} accedió a la vista de creación de citas médicas.")
+    form = AppointmentForm(request.POST or None)
+
+    # Si el user es staff, borra el desplegable de usuarios.
+    if not request.user.is_staff:
+        del form.fields["user"]
+
+    if request.method == "POST" and form.is_valid():
+        appointment = form.save(commit=False)
+        if not request.user.is_staff:
+            appointment.user = request.user
+        appointment.save()
+        logging.info(f"La cita médica fue creada exitosamente por el usuario {request.user}.")
+        return redirect("citas")
 
     return render(request, "añadir_cita.html", {"form": form, "titulo": "Crear cita"})
 
@@ -152,19 +156,16 @@ def view_vaccines(request):
 def view_create_vaccine(request):
     if not request.user.is_staff:
         logging.warning(f"El usuario {request.user} intentó acceder a la vista de creación de vacunas sin permisos.")
-        return redirect("mascotas") 
-    
-    if request.method == "POST":
-        name = request.POST.get("name")
-        description = request.POST.get("description")
-        vaccine = Vaccines(name=name, description=description)
-        vaccine.save()
-        logging.info(f"La vacuna {vaccine.name} fue creada exitosamente por el usuario {request.user}.")
-        return redirect("vacunas")
-    else:
-        logging.info(f"El usuario {request.user} accedió a la vista de creación de vacunas.")
-    return render(request, "añadir_vacuna.html", {"titulo": "Crear vacuna"})
+        return redirect("mascotas")
 
+    form = VaccineForm(request.POST or None)
+
+    if request.method == "POST" and form.is_valid():
+        vaccine = form.save()
+        logging.info(f"La vacuna {vaccine.name_vaccine} fue asignada a {vaccine.pet} por el usuario {request.user}.")
+        return redirect("vacunas")
+
+    return render(request, "añadir_vacuna.html", {"form": form, "titulo": "Crear vacuna"})
 
 # DELETE VACUNAS
 @login_required
@@ -176,9 +177,9 @@ def view_del_vaccine(request, id_vaccine):
     vaccine = get_object_or_404(Vaccines, id=id_vaccine)
     if request.method == "POST":
         vaccine.delete()
-        logging.info(f"La vacuna {vaccine.name} fue eliminada exitosamente por el usuario {request.user}.")
+        logging.info(f"La vacuna {vaccine.name_vaccine} fue eliminada exitosamente por el usuario {request.user}.")
         return redirect("vacunas")
-    return render(request, "confirmar_borrado.html", {"Vacuna": vaccine})
+    return render(request, "vacunas.html", {"Vacuna": vaccine})
 
 
 """ Vistas de REGISTRO USUARIO """

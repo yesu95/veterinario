@@ -19,6 +19,22 @@
             <li><strong>Edad:</strong> {{ mascota.age }} años</li>
         </ul>
 
+        {% with vacunas=mascota.vaccines_set.all %}
+        {% if vacunas %}
+        <div class="pet-vaccines">
+            <strong>Vacunas:</strong>
+            <ul class="pet-data-list">
+                {% for vacuna in vacunas %}
+                <li>
+                    <strong>{{ vacuna.name_vaccine }}:</strong>
+                    {{ vacuna.date_vaccine|date:"d/m/Y" }}
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+        {% endwith %}
+
         {% if user.is_staff %}
         <div class="pet-actions-group">
             <a class="btn btn-edit-pet" href="{% url 'editar mascota' id_pet=mascota.id %}">Editar</a>

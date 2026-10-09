@@ -1,0 +1,21 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block content %}
+<div class="pets-page-container">
+    <section class="section-pets">
+        <div class="pets-header">
+            <h2 class="title-pet">{{ titulo }}</h2>
+        </div>
+
+        <form method="post" class="form-card">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <div class="form-actions">
+                <button type="submit" class="btn btn-add-pet">Guardar vacuna</button>
+                <a class="btn" href="{% url 'vacunas' %}">Cancelar</a>
+            </div>
+        </form>
+    </section>
+</div>
+{% endblock %}

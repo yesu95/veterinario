@@ -8,6 +8,9 @@
         <div class="nav-user-logged">
             <a href="{% url 'mascotas' %}">Mascotas</a>
             <a href="{% url 'citas' %}">Citas</a>
+            {% if user.is_staff %}
+            <a href="{% url 'vacunas' %}">Vacunas</a>
+            {% endif %}
         </div>
         {% endif %}
 

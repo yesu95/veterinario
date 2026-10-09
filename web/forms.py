@@ -91,3 +91,29 @@ class RegisterForm(UserCreationForm):
     class Meta:
         model = User
         fields = ['username', 'first_name', 'last_name', 'email']
+
+
+"""" Formulario de vacunas """
+class VaccineForm(forms.ModelForm):
+    class Meta:
+        model = Vaccines
+        fields = ["name_vaccine", "pet", "date_vaccine"]
+
+        labels = {
+            "name_vaccine": "Vacuna",
+            "pet": "Animal",
+            "date_vaccine": "Fecha de vacunación",
+        }
+
+        widgets = {
+            "date_vaccine": forms.DateInput(attrs={"type": "date"}),
+        }
+
+    # Comprobación fecha de vacunación no sea menor que la actual
+    def clean_date_vaccine(self):
+        date = self.cleaned_data.get("date_vaccine")
+
+        if date and date > timezone.now().date():
+            raise forms.ValidationError("La fecha de vacunación no puede ser una fecha futura.")
+
+        return date

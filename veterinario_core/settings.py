@@ -1,14 +1,29 @@
+import logging
 from pathlib import Path
 from dotenv import load_dotenv
 from urllib.parse import urlparse, parse_qsl
 import os
+import logging
 
 load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
+# LOGGING CONFIGURATION
+""" try-except para capturar el error, en vercel sale porque no tenemos 
+permisos para crear el archivo de log, pero en local si debe funcionar """
+try:
+    logging.basicConfig(
+        filename=BASE_DIR / "Logging-Veterinario.log",
+        level=logging.INFO,
+        format="%(asctime)s - %(levelname)s - %(message)s",
+        datefmt="%H:%M:%S",
+        encoding="utf-8"
+    )
+except OSError:
+    print("Error: No se pudo crear el archivo de registro.")
+    
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.1/howto/deployment/checklist/
 

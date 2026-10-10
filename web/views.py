@@ -24,9 +24,14 @@ def view_pets(request):
 @login_required
 def view_detail(request, id_pet):
     pet_select = get_object_or_404(Pet, id=id_pet)
-    logging.info(f"Mostrando detalles de la mascota {pet_select.name}.")
-    return render(request, "detalle_mascota.html", {"mascota": pet_select})
 
+    # No permitir que el usuario vea mascotas que no son suyas a menos que sean staff
+    if not request.user.is_staff and pet_select.user != request.user:
+        logging.warning(f"El usuario '{request.user}' intentó ver la mascota '{pet_select.name}' que no es suya.")
+        return redirect("mascotas")
+
+    logging.info(f"Mostrando detalles de la mascota '{pet_select.name}'.")
+    return render(request, "detalle_mascota.html", {"mascota": pet_select})
 
 # CREATE PET
 @login_required

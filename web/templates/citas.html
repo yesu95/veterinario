@@ -30,7 +30,8 @@
                             📅 {{ cita.date_appointment|date:"d/m/Y" }} · 🕒 {{ cita.time|time:"H:i" }}
                         </span>
                         {% if request.user.is_staff %}
-                        <span class="pet-owner">Propietario: {{ cita.user.username }}</span>
+                        <p class="pet-owner-label">Reservada por: <span class="pet-owner">{{cita.user.username}}</span>
+                        </p>
                         {% endif %}
                     </div>
                 </div>

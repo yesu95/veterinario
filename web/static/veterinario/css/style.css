@@ -733,6 +733,88 @@ input, button, select, textarea {
 }
 
 /* =========================================================
+   PÁGINA 500
+   ========================================================= */
+.section-error {
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+}
+
+.container-error {
+  background: var(--purple-dark);
+  border-radius: 2rem;
+  padding: 3rem 2rem;
+  max-width: 40rem;
+  width: 100%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 1rem 2.5rem rgba(0, 0, 0, 0.15);
+}
+
+.illustration-error {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.illustration-error .num {
+  font-family: var(--font-title);
+  font-size: 6rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--yellow);
+  text-shadow: 0.2rem 0.2rem 0 var(--orange);
+}
+
+/* El primer 0 rebota como una pelota */
+.illustration-error .num:nth-child(2) {
+  color: var(--orange);
+  text-shadow: 0.2rem 0.2rem 0 var(--yellow);
+  animation: rebote 1.2s ease-in-out infinite;
+}
+
+@keyframes rebote {
+  0%, 100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-1rem);
+  }
+}
+
+.container-error .text-m {
+  margin-bottom: 2rem;
+}
+
+.btn-back {
+  display: inline-block;
+  background-color: var(--yellow);
+  color: var(--ink);
+  font-weight: 600;
+  text-decoration: none;
+  padding: 0.8rem 2rem;
+  border-radius: 3rem;
+  transition: all 0.2s ease;
+}
+
+.btn-back:hover {
+  background-color: #ffc800;
+  transform: translateY(-0.15rem);
+}
+
+@media (max-width: 40rem) {
+  .illustration-error .num {
+    font-size: 4rem;
+  }
+}
+
+/* =========================================================
    RESPONSIVE
    ========================================================= */
 @media (max-width: 64rem) {

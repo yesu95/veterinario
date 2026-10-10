@@ -10,6 +10,7 @@ import logging
 """ Vistas de MASCOTAS (PETS)"""
 
 # READ MÚLTIPLE PETS
+""" SI es staff muestra todas las mascotas del centro SINO muestra solo las mascotas del usuario logueado"""
 @login_required
 def view_pets(request):
     if request.user.is_staff:
@@ -21,6 +22,7 @@ def view_pets(request):
     return render(request, 'mascotas.html', {'mascotas': all_pets})
 
 # READ INDIVIDUAL PET
+""" SI NO es staff y mascota NO pertenece al usuario logueado, redirige a vista mascotas. SIGUE hasta muestra detalle de la mascota"""
 @login_required
 def view_detail(request, id_pet):
     pet_select = get_object_or_404(Pet, id=id_pet)
@@ -34,6 +36,10 @@ def view_detail(request, id_pet):
     return render(request, "detalle_mascota.html", {"mascota": pet_select})
 
 # CREATE PET
+"""" 
+    SI NO es staff, redirige a vista mascotas. SIGUE hasta crear mascota y asignarla a un usuario. 
+    SI el usuario tiene una mascota con mismo nombre, excepción PetError y MUESTRA mensaje de error.
+"""
 @login_required
 def view_create_pet(request):
     if not request.user.is_staff:
@@ -72,6 +78,7 @@ def view_create_pet(request):
 
 
 # UPDATE PET
+""" SI NO es staff, redirige a vista mascotas. SIGUE hasta editar mascota y asignarla a un usuario."""
 @login_required
 def view_edit_pet(request, id_pet):
     old_pet = get_object_or_404(Pet, id=id_pet)
@@ -92,6 +99,7 @@ def view_edit_pet(request, id_pet):
 
 
 # DELETE PET
+""" SI NO es staff, redirige a vista mascotas. SIGUE hasta eliminar mascota."""
 @login_required
 def view_del_pet(request, id_pet):
     if not request.user.is_staff:
@@ -110,6 +118,7 @@ def view_del_pet(request, id_pet):
 """ Vistas de CITAS (APPOINTMENTS)"""
 
 # READ CITAS
+""" SI es staff muestra todas las citas médicas del centro SINO muestra solo las citas médicas del usuario logueado."""
 @login_required
 def view_appointments(request):
     if request.user.is_staff:
@@ -122,6 +131,7 @@ def view_appointments(request):
 
 
 # CREATE CITAS
+"""" SI NO es staff, redirige a vista mascotas. SI SIGUE crea cita médica y la asigna a un usuario."""
 @login_required 
 def view_create_appointment(request):
     form = AppointmentForm(request.POST or None)
@@ -141,6 +151,7 @@ def view_create_appointment(request):
     return render(request, "añadir_cita.html", {"form": form, "titulo": "Crear cita"})
 
 # DELETE CITAS
+""" SI NO es staff, redirige a vista mascotas. SI SIGUE se elimina cita médica."""
 @login_required 
 def view_del_appointment(request, id_appointment):
     if not request.user.is_staff:
@@ -158,6 +169,7 @@ def view_del_appointment(request, id_appointment):
 """ Vistas de VACUNAS """
 
 # READ VACUNAS
+""" SI NO es staff, redirige a vista mascotas. SI SIGUE muestra todas las vacunas."""
 @login_required
 def view_vaccines(request):
     if not request.user.is_staff:
@@ -170,6 +182,7 @@ def view_vaccines(request):
 
 
 # CREATE VACUNAS
+""" SI NO es staff, redirige a vista mascotas. SI SIGUE crea vacuna y la asigna a un usuario."""
 @login_required
 def view_create_vaccine(request):
     if not request.user.is_staff:
@@ -186,6 +199,7 @@ def view_create_vaccine(request):
     return render(request, "añadir_vacuna.html", {"form": form, "titulo": "Crear vacuna"})
 
 # DELETE VACUNAS
+""" SI NO es staff, redirige a vista mascotas. SI SIGUE se elimina vacuna."""
 @login_required
 def view_del_vaccine(request, id_vaccine):
     if not request.user.is_staff:
@@ -203,6 +217,7 @@ def view_del_vaccine(request, id_vaccine):
 """ Vistas de REGISTRO USUARIO """
 
 # REGISTRO USER
+""" SI el usuario ya está logueado, redirige a vista mascotas. SI SIGUE crea usuario y lo asigna a un usuario."""
 def view_register(request):
     if request.method == "POST":
         form = RegisterForm(request.POST)

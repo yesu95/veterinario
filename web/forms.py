@@ -4,7 +4,7 @@ from .models import Pet, Appointment, Vaccines
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 
-""" Formulario para las pets """
+# FORMULARIO DE MASCOTAS
 class Petform(forms.ModelForm):
     user = forms.ModelChoiceField(
         queryset=User.objects.filter(is_staff=False, is_superuser=False),
@@ -41,7 +41,7 @@ class Petform(forms.ModelForm):
         return birth_date
         
 
-""" Form de citas """
+# FORMULARIO DE CITAS MÉDICAS
 class AppointmentForm(forms.ModelForm):
     class Meta:
         model = Appointment
@@ -71,7 +71,7 @@ class AppointmentForm(forms.ModelForm):
         return date
 
     
-""" Form de registro de usuario """
+# FORMULARIO DE REGISTRO DE USUARIO
 class RegisterForm(UserCreationForm):
     first_name = forms.CharField(
         max_length=30, 
@@ -93,7 +93,7 @@ class RegisterForm(UserCreationForm):
         fields = ['username', 'first_name', 'last_name', 'email']
 
 
-"""" Formulario de vacunas """
+# FORMULARIO DE VACUNAS
 class VaccineForm(forms.ModelForm):
     class Meta:
         model = Vaccines

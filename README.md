@@ -1,17 +1,18 @@
 # Veterinario
 
 Mi proyecto final para Python es una app desarrollada en DJANGO de un portal para una clínica veterinaria y sus clientes.
+
 En este portal podremos acceder tanto si somos ***personal*** de la clínica con funciones como:
 
-· Añadir, eliminar y modificar mascotas.
-· Añadir vacunas y asignarlas a mascotas y borrarlas.
-· Añadir y borrar citas. 
+- Añadir, eliminar y modificar mascotas.
+- Añadir vacunas y asignarlas a mascotas y borrarlas.
+- Añadir y borrar citas. 
 
 Y las funciones de los ***usuarios***:
 
-· Registrarnos en la plataforma.
-· Crear una cita para nosotros.
-· Visualizar citas y nuestras mascotas con toda su información.
+- Registrarnos en la plataforma.
+- Crear una cita para nosotros.
+- Visualizar citas y nuestras mascotas con toda su información.
 
 ## Tecnologías
 Python, Django, HTML + CSS, JavaScript.
@@ -25,7 +26,7 @@ Python, Django, HTML + CSS, JavaScript.
 2. Crea y activa el entorno virtual:
 ```
    python -m venv env
-   env\Scripts\activate
+   env\Scripts\activate.ps1
 ```
 3. Instala las dependencias:
 ```

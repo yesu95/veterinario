@@ -51,15 +51,19 @@ Python, Django, HTML + CSS, JavaScript.
 ## Usuarios de prueba local
 | Usuario | Contraseña | Rol |
 |---|---|---|
+| admin | admin1234# | admin |
 | carmenvet | carmenvet1234# | Veterinario (staff) |
 | jose | jose1234# | Dueño |
 | maria | maria1234# | Dueño |
 
+PASSWORD VETS (No recuerdo si en local es carmenvet12343# o animalia1234#) 
+
 ## Usuarios de prueba en Vercel
 | Usuario | Contraseña | Rol |
 |---|---|---|
-| carmenvet | animalia1234#| Veterinario (staff) |
-| jose | jose1234# | Dueño |
+| admin | admin1234#| admin |
+| carmenvet | animaliapass1234#| Veterinario (staff) |
+| jesus | jesus1234# | Dueño |
 
 ## Estructura del proyecto
 
